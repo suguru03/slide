@@ -148,6 +148,8 @@ async.eachSeries(array, syncIterator, callback); // stack overflow (RangeError)
 
 ---
 
+background-image: url(img/bed.jpg)
+
 ## 夜中に起きたくない
 
 ---
