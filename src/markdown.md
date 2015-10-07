@@ -20,9 +20,11 @@ class: center, middle
 
 # Agenda
 
-1. いろはに
-2. ほへと
-3. ちりぬるを
+1. Neo-Asyncとは
+2. 作ったモチベーション
+3. Neo-Asyncの特徴
+4. 作ってからの出来事
+5. まとめ
 
 ---
 
@@ -51,16 +53,16 @@ class: center, middle, inverse
 
 # 作ったモチベーション
 
-- asyncで可読性の高いコードを実現
+- Asyncで可読性の高いコードを実現
 - 致命的なエラー
     - TypeError
     - StackOverflow
-- async本家の問題
+- Asyncの問題
 - 夜中に起きたくない
 
 ---
 
-## asyncで可読性の高いコードを実現
+## Asyncで可読性の高いコードを実現
 
 .col-5[
 コールバック地獄
@@ -85,16 +87,17 @@ async1(function(err, result) {
           if (err) {
             return callback(err);
           }
-        })
-      })
-    })
-  })
+          callback(null, result);
+        });
+      });
+    });
+  });
 });
 ```
 ]
 
 .col-3[
-asyncスタイルで可読性UP
+Asyncスタイルで可読性UP
 ```javascript
 async.watarfall([
   async1,
@@ -114,7 +117,7 @@ async.watarfall([
 
 ## 致命的なエラー(TypeError)
 
-ここに文章を入れる
+- Async@0.9.2ではTypeErrorが発生する
 
 ```javascript
 var obj = {};
@@ -129,7 +132,7 @@ async.each(obj.array, iterator, callback); // TypeError
 
 ## 致命的なエラー(StackOverflow)
 
-ここに文章を入れる
+- series系で同期的呼び出しが行われるとstack overflowが発生する。
 
 ```javascript
 var array = _.range(10000); // [0, 1, 2, ...., 9999];
@@ -141,7 +144,7 @@ async.eachSeries(array, syncIterator, callback); // stack overflow (RangeError)
 
 ---
 
-## async本家の問題
+## Asyncの問題(当時)
 
 - issue、PRが放置されている
 - メンテされていない
@@ -177,7 +180,7 @@ class: center, middle, inverse
 
 ## ベンチマーク比較
 
-.center.fs-s[asyncと比べた際の速度比較(倍)]
+.center.fs-s[Asyncと比べた際の速度比較(倍)]
 
 |function     |v0.10.40    |v0.12.7     |v4.1.2      |
 |-------------|------------|------------|------------|
@@ -191,9 +194,26 @@ class: center, middle, inverse
 |concat       |.right[12.7]|.right[6.67]|.right[7.17]|
 
 ---
-## forEach
+## 自前のforEachを作る
 
-```javascript_
+.col-4[
+```javascript
+var array = [0, 1, 2];
+var iterator = function(value, index) {
+  console.log(index, value);
+};
+array.forEach(iterator);
+```
+]
+
+.col-4[
+```javascript
+var array = [0, 1, 2];
+var iterator = function(value, index) {
+  console.log(index, value);
+};
+forEach(array, iterator);
+
 function forEach(array, iterator) {
   var i = -1;
   var size = array.length;
@@ -201,17 +221,14 @@ function forEach(array, iterator) {
     iterator(array[i], i);
   }
 }
-var array = [0, 1, 2];
-var iterator = function(value, index) {
-  console.log(index, value);
-};
-array.forEach(iterator);
-forEach(array, iterator);
 ```
+]
+
 ---
 
-## Arrayの初期化
+## Arrayの初期化をする
 
+.col-4[
 ```javascript
 var i = -1;
 var size = 100;
@@ -219,7 +236,11 @@ var array = [];
 while (++i < size) {
   array.push(i);
 }
+```
+]
 
+.col-4[
+```javascript
 var i = -1;
 var size = 100;
 var array = Array(size);
@@ -227,9 +248,10 @@ while (++i < size) {
   array[i] = i;
 }
 ```
+]
 
 ---
-## call, apply, bind
+## call vs apply
 
 - 100回で比較してもやはりcallのほうが速い
 
@@ -253,11 +275,14 @@ switch (args.length) {
 }
 ```
 ---
-## nextTick, setImmediate
+## 同期処理のハンドリング
 
+- 同期処理に対してのみnextTickを呼ぶようにする
 - v0.10はsetImmediate、v0.12はnextTick
 
 ```javascript
+async.nextTick = /v0.10/.test(process.version) ? setImmediate : process.nextTick;
+
 var sync = true;
 var iterator = function(done) {
   done();
@@ -286,7 +311,7 @@ class: center, middle, inverse
 
 ## TypeErrorが発生しない
 
-async本家のコード
+Asyncのコード
 
 ```javascript
 async.each = function (arr, iterator, callback) {
@@ -364,6 +389,8 @@ async.each(obj, iterator, function(err) {
 
 ## 第二引数にkeyを取ることもできる
 
+- iteratorの引数が3つのときに第二引数にkeyを取ることができる
+
 ```javascript
 var obj = { a: 1, b: 2, c: 3 };
 var result = [];
@@ -382,7 +409,7 @@ async.each(obj, iterator, function(err) {
 ## asyncの使えないfunctionが使い物になる
 
 - filter/reject/detect/some/every
-
+- callbackの引数が2つのときにエラーハンドリングができるようになる
 
 ```javascript
 var obj = { a: 1, b: 2, c: 3 };
@@ -393,9 +420,9 @@ var iterator = function(value, done) {
 async.filter(obj, iterator, function(result) {
  console.log(result); // ['b'];
 });
+```
 
-//
-
+```javascript
 var obj = { a: 1, b: 2, c: 3 };
 var result = [];
 var iterator = function(value, done) {
@@ -429,7 +456,8 @@ class: center, middle, inverse
 
 ## 後方互換性がある
 
-- asyncを使ってる人は以下でOK
+- Asyncを使っている人は以下でOK
+- 簡単にNeo-Asyncを試すことができる
 
 ```bash
 $ npm install neo-async
@@ -440,7 +468,7 @@ $ ln -s ./node_modules/neo-async ./node_modules/async
 var async = require('async');
 ```
 
-- 新しくneo-asyncを使う時は
+- 新しくNeo-Asyncを使う時は
 
 ```bash
 $ npm install neo-async
@@ -467,8 +495,8 @@ class: center, middle, inverse
 
 ## 使われ始める
 
-- 社内でneo-asyncが使い始められる
-  - asyncでRangeErrorが発生し急遽neo-asyncに移行したプロジェクトも
+- 社内でNeo-Asyncが使い始められる
+  - asyncでRangeErrorが発生し急遽Neo-Asyncに移行したプロジェクトも
   - 現在では7プロジェクトで使われている
 - 海外からもissueやPRが少しずつ来るようになった
 
@@ -478,8 +506,12 @@ class: center, middle, inverse
 
 ![documentIsBad](img/document_is_bad.png)
 
+--
+
 - OSS活動で英語ができない劣等感を感じる...
 - なんとか英語ができるようになりたい...
+
+--
 
 .fs-l.fw-b[
 来月から1年間<br>海外(カナダ)行ってきます
@@ -490,8 +522,8 @@ class: center, middle, inverse
 # まとめ
 
 - Neo-Asyncは速くて安全でかつ高機能！
-- async使ってる人はNeo-Asyncに変えましょう！
-- asyncの時代はもう少し続くのでまだまだ良くしていきます！
+- Async使ってる人はNeo-Asyncに変えましょう！
+- Asyncの時代はもう少し続くのでまだまだ良くしていきます！
 - もっと早くなる書き方知ってる方はPRでください！
 
 ---
