@@ -175,22 +175,23 @@ class: center, middle, inverse
 
 ## ベンチマーク比較
 
+.center.fs-s[asyncと比べた際の速度比較(倍)]
 
-- func-comparator
-  - インライン展開を考慮したベンチマークツール
-- node 0.10 / 0.12 / 4.1.2で取り直したい
-
-|function|v0.10.40|v0.12.7|v2.3.4|
-|---|---|---|---|
-|parallel|4.13|5.00|3.37|
-|series|3.13|2.70|3.03|
-|parallelLimit|2.69|2.96|2.49|
-|waterfall|3.45|7.24|7.59|
+|function     |v0.10.40    |v0.12.7     |v4.1.2      |
+|-------------|------------|------------|------------|
+|waterfall    |.right[8.24]|.right[7.38]|.right[9.11]|
+|parallel     |.right[7.83]|.right[5.66]|.right[4.58]|
+|series       |.right[4.69]|.right[3.29]|.right[4.11]|
+|parallelLimit|.right[3.77]|.right[2.95]|.right[2.64]|
+|each         |.right[1.88]|.right[1.98]|.right[2.38]|
+|eachSeries   |.right[2.23]|.right[1.81]|.right[2.23]|
+|eachLimit    |.right[2.05]|.right[1.82]|.right[2.00]|
+|concat       |.right[12.7]|.right[6.67]|.right[7.17]|
 
 ---
 ## forEach
 
-```javascript
+```javascript_
 function forEach(array, iterator) {
   var i = -1;
   var size = array.length;
@@ -219,11 +220,12 @@ while (++i < size) {
 
 var i = -1;
 var size = 100;
-var array = Array(size); // [undefined * size];
+var array = Array(size);
 while (++i < size) {
   array[i] = i;
 }
 ```
+
 ---
 ## call, apply, bind
 
