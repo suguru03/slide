@@ -371,7 +371,7 @@ class: center, middle, inverse
 
 ## Objectがまわせる
 
-- asyncは1系で最近対応された
+- Asyncは1系で最近対応された
 
 ```javascript
 var obj = { a: 1, b: 2, c: 3 };
@@ -403,10 +403,9 @@ async.each(obj, iterator, function(err) {
 });
 ```
 
-
 ---
 
-## asyncの使えないfunctionが使い物になる
+## Asyncの使えないfunctionが使い物になる
 
 - filter/reject/detect/some/every
 - callbackの引数が2つのときにエラーハンドリングができるようになる
@@ -435,7 +434,7 @@ async.filter(obj, iterator, function(err, result) {
 
 ---
 
-## asyncに無いfunctionがある
+## Asyncに無いfunctionがある
 
 - mapValues / mapValuesSeries / mapValuesLimit
 - pick / pickSeries / pickLimit
@@ -496,7 +495,7 @@ class: center, middle, inverse
 ## 使われ始める
 
 - 社内でNeo-Asyncが使い始められる
-  - asyncでRangeErrorが発生し急遽Neo-Asyncに移行したプロジェクトも
+  - AsyncでRangeErrorが発生し急遽Neo-Asyncに移行したプロジェクトも
   - 現在では7プロジェクトで使われている
 - 海外からもissueやPRが少しずつ来るようになった
 

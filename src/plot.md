@@ -320,7 +320,7 @@ async.each(obj, iterator, function(err) {
 });
 ```
 
-- asyncは1系で対応済み
+- Asyncは1系で対応済み
 
 ---
 
