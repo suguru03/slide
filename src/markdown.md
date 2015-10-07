@@ -6,6 +6,11 @@ class: center, middle
 
 # About me
 
+
+```javascript
+var hoge;
+var hoge = hoge();
+```
 ---
 
 # Agenda
