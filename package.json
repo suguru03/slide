@@ -1,0 +1,21 @@
+{
+  "name": "boilerplate-remark",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "gulp server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HAKASHUN/boilerplate-remark.git"
+  },
+  "author": "HAKASHUN",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HAKASHUN/boilerplate-remark/issues"
+  },
+  "homepage": "https://github.com/HAKASHUN/boilerplate-remark",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-webserver": "^0.9.1"
+  }
+}
