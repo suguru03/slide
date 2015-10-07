@@ -15,9 +15,9 @@ var hoge = hoge();
 
 # Agenda
 
-1. Introduction
-2. Deep-dive
-3. ...
+1. いろはに
+2. ほへと
+3. ちりぬるを
 
 ---
 
@@ -33,8 +33,8 @@ class: center, middle, inverse
 
 class: center, middle
 
-## Readable
-## Error
+## 可読性
+## タイプエラー
 ## Community Problem
 ## QOL
 
