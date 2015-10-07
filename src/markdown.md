@@ -21,7 +21,9 @@ var hoge = hoge();
 
 ---
 
-# What is "Theme"
+# What is "Neo-Async"
+
+.center[![logo](img/logo.png)]
 
 ---
 
