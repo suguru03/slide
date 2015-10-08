@@ -274,7 +274,7 @@
         <a class="gh-btn" id="gh-btn" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="Star on GitHub">
             <span class="gh-ico" aria-hidden="true"></span> <span class="gh-text" id="gh-text">Star</span>
         </a>
-        <a id="gh-count" class="gh-count" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="87,423 stargazers on GitHub" style="display: block;">
+        <a id="gh-count" class="gh-count" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="87,423 stargazers on GitHub" style="display: none;">
             0
         </a>
     </span>
@@ -289,39 +289,42 @@
         highlightLines: true
     });
 
-    var timer = function() {
-      request();
-      setTimeout(timer, 5000);
-    };
-    var request = function() {
-      var request = new XMLHttpRequest();
-      request.open('GET', 'http://localhost:8000/star', true);
-      request.onreadystatechange = function() {
-        if (request.readyState != 4 || request.status !== 200) {
-          return;
-        }
-
-        var star = +request.responseText;
-        if (isNaN(star) || star <= 0) {
-          return;
-        }
-        console.log(star);
-        var dom = document.getElementById('gh-count');
-        if (dom.innerHTML != star) {
-          dom.classList.toggle('changed');
-          setTimeout(function() {
-            dom.classList.toggle('changed');
-          }, 1000);
-        }
-        dom.innerHTML = star;
-      };
-      request.send();
-    };
-    timer();
+    request();
 
     // 初回のスターボタンセット
     setStarsButton();
     slideshow.on('afterShowSlide', setStarsButton);
+
+
+    /**
+     * addCommas
+     */
+    function addCommas(t) {
+        return String(t).replace(/(\d)(?=(\d{3})+$)/g, "$1,")
+    }
+    /**
+     * request
+     */
+    function request() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://api.github.com/repos/suguru03/neo-async', true);
+        request.onreadystatechange = function() {
+            var dom = document.getElementById('gh-count');
+            if (request.readyState != 4 || request.status !== 200) {
+                return;
+            }
+            var data = null;
+            try {
+                data = JSON.parse( request.responseText );
+                var star = +JSON.parse(request.responseText).stargazers_count;
+                dom.innerHTML = addCommas(star);
+                dom.style.display = 'block';
+            } catch (e) {
+
+            }
+        };
+        request.send();
+    };
 
     /**
      * setStarsButton
