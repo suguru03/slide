@@ -26,3 +26,24 @@ exports.getStar = function(req, res) {
     res.end(star);
   });
 };
+
+//
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+
+['js', 'img'].forEach(function(dir) {
+  app.use('/' + dir, express.static('src/' + dir));
+});
+
+app.get('/*.md', function(req, res) {
+  res.sendfile('src' + req.url);
+});
+
+app.get('/', function(req, res) {
+  res.sendfile('src/index.html');
+});
+
+app.get('/star', exports.getStar);
+
+http.listen(8000);
