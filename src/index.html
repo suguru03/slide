@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Presentation</title>
+    <title>Neo-Async｜東京Node学園 18時限目</title>
     <meta charset="utf-8">
+    <meta name="title" content="Neo-Async">
+    <meta name="description" content="東京Node学園 18時限目で発表した Neo-Async の話です">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Neo-Async">
+    <meta property="og:description" content="東京Node学園 18時限目で発表した Neo-Async の話です">
+
+    <!-- TODO:公開URLの絶対パスで指定 -->
+    <meta property="og:url" content="公開URL" />
+    <meta property="og:image" content="img/og.png">
+    <meta name="twitter:image:src" content="img/og.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@hollow_nage">
+    <meta name="twitter:creator" content="@hollow_nage">
+    <meta name="twitter:title" content="Neo-Async #tng18">
+    <meta name="twitter:description" content="東京Node学園 18時限目で発表した Neo-Async の話です">
     <style>
-        @import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
-        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
         body {
-            font-family: 'Noto Sans Japanese', serif;
+            font-family: 'Noto Sans Japanese', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
         }
         h1, h2, h3 {
             font-weight: bold;
@@ -274,14 +287,29 @@
         <a class="gh-btn" id="gh-btn" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="Star on GitHub">
             <span class="gh-ico" aria-hidden="true"></span> <span class="gh-text" id="gh-text">Star</span>
         </a>
-        <a id="gh-count" class="gh-count" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="87,423 stargazers on GitHub" style="display: block;">
+        <a id="gh-count" class="gh-count" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="87,423 stargazers on GitHub" style="display: none;">
             0
         </a>
     </span>
 </div>
-<script src="js/remark.min.js">
-</script>
+<script src="js/remark.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/webfont/1.6.4/webfontloader.js"></script>
 <script>
+    /**
+     * @description
+     * WebFontローダーを用いて、
+     * サイズの大きい日本語用のフォントを非同期ローディングします
+     */
+
+    WebFont.load({
+        google: {
+            families: ['Ubuntu Mono:400,700,400italic']
+        },
+        custom: {
+            families: ['Noto Sans Japanese:n1,n2,n3,n4,n5,n7,n9'],
+            urls: ['//fonts.googleapis.com/earlyaccess/notosansjapanese.css']
+        }
+    });
     var slideshow = remark.create({
         sourceUrl: 'markdown.md',
         highlightLanguage: 'javascript',
@@ -289,39 +317,42 @@
         highlightLines: true
     });
 
-    var timer = function() {
-      request();
-      setTimeout(timer, 5000);
-    };
-    var request = function() {
-      var request = new XMLHttpRequest();
-      request.open('GET', 'http://localhost:8000/star', true);
-      request.onreadystatechange = function() {
-        if (request.readyState != 4 || request.status !== 200) {
-          return;
-        }
-
-        var star = +request.responseText;
-        if (isNaN(star) || star <= 0) {
-          return;
-        }
-        console.log(star);
-        var dom = document.getElementById('gh-count');
-        if (dom.innerHTML != star) {
-          dom.classList.toggle('changed');
-          setTimeout(function() {
-            dom.classList.toggle('changed');
-          }, 1000);
-        }
-        dom.innerHTML = star;
-      };
-      request.send();
-    };
-    timer();
+    request();
 
     // 初回のスターボタンセット
     setStarsButton();
     slideshow.on('afterShowSlide', setStarsButton);
+
+
+    /**
+     * addCommas
+     */
+    function addCommas(t) {
+        return String(t).replace(/(\d)(?=(\d{3})+$)/g, "$1,")
+    }
+    /**
+     * request
+     */
+    function request() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://api.github.com/repos/suguru03/neo-async', true);
+        request.onreadystatechange = function() {
+            var dom = document.getElementById('gh-count');
+            if (request.readyState != 4 || request.status !== 200) {
+                return;
+            }
+            var data = null;
+            try {
+                data = JSON.parse( request.responseText );
+                var star = +JSON.parse(request.responseText).stargazers_count;
+                dom.innerHTML = addCommas(star);
+                dom.style.display = 'block';
+            } catch (e) {
+
+            }
+        };
+        request.send();
+    };
 
     /**
      * setStarsButton
