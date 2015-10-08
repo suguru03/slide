@@ -20,11 +20,8 @@
     <meta name="twitter:title" content="Neo-Async #tng18">
     <meta name="twitter:description" content="東京Node学園 18時限目で発表した Neo-Async の話です">
     <style>
-        @import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
-        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
         body {
-            font-family: 'Noto Sans Japanese', serif;
+            font-family: 'Noto Sans Japanese', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
         }
         h1, h2, h3 {
             font-weight: bold;
@@ -295,9 +292,24 @@
         </a>
     </span>
 </div>
-<script src="js/remark.min.js">
-</script>
+<script src="js/remark.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/webfont/1.6.4/webfontloader.js"></script>
 <script>
+    /**
+     * @description
+     * WebFontローダーを用いて、
+     * サイズの大きい日本語用のフォントを非同期ローディングします
+     */
+
+    WebFont.load({
+        google: {
+            families: ['Ubuntu Mono:400,700,400italic']
+        },
+        custom: {
+            families: ['Noto Sans Japanese:n1,n2,n3,n4,n5,n7,n9'],
+            urls: ['//fonts.googleapis.com/earlyaccess/notosansjapanese.css']
+        }
+    });
     var slideshow = remark.create({
         sourceUrl: 'markdown.md',
         highlightLanguage: 'javascript',
