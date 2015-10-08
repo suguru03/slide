@@ -13,8 +13,8 @@ gulp.task('server', function () {
 var request = require('request');
 var url = 'https://github.com/suguru03/neo-async/stargazers';
 exports.getStar = function(req, res) {
-  res.end(Math.floor(Math.random() * 1000) + '');
-  return;
+  //res.end(Math.floor(Math.random() * 1000) + '');
+  //return;
   request.get(url, function(err, _res, body) {
     var str = _.find(body.split('\n'), function(data) {
       return /class="counter"/.test(data);

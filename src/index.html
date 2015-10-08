@@ -198,6 +198,7 @@
             background-color: #fafafa;
             border: 1px solid #d4d4d4;
             font-size: 16px;
+            -webkit-transition: background-color 1s;
         }
         .gh-btn, .gh-count {
             padding: 2px 5px 2px 4px;
@@ -257,6 +258,9 @@
         .gh-count:focus,.gh-count:hover {
             color: #4183C4
         }
+        .gh-count.changed {
+          background-color: orange;
+        }
 
     </style>
 </head>
@@ -267,7 +271,7 @@
             <span class="gh-ico" aria-hidden="true"></span> <span class="gh-text" id="gh-text">Star</span>
         </a>
         <a id="gh-count" class="gh-count" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="87,423 stargazers on GitHub" style="display: block;">
-            87,423
+            0
         </a>
     </span>
 </div>
@@ -282,10 +286,8 @@
     });
 
     var timer = function() {
-      setTimeout(function() {
-        request();
-        timer();
-      }, 100000);
+      request();
+      setTimeout(timer, 5000);
     };
     var request = function() {
       var request = new XMLHttpRequest();
@@ -296,6 +298,12 @@
           return;
         }
         console.log(star);
+        var dom = document.getElementById('gh-count');
+        dom.innerHTML = star;
+        dom.classList.toggle('changed');
+        setTimeout(function() {
+          dom.classList.toggle('changed');
+        }, 1000)
       };
       request.send();
     };
