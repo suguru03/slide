@@ -293,6 +293,10 @@
       var request = new XMLHttpRequest();
       request.open('GET', 'http://localhost:8000/star', true);
       request.onreadystatechange = function() {
+        if (request.readyState != 4 || request.status !== 200) {
+          return;
+        }
+
         var star = +request.responseText;
         if (isNaN(star) || star <= 0) {
           return;
