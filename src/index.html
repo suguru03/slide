@@ -261,7 +261,7 @@
     </style>
 </head>
 <body>
-<div class="stars">
+<div id="stars" class="stars">
     <span class="github-btn github-stargazers github-btn-large">
         <a class="gh-btn" id="gh-btn" href="https://github.com/suguru03/neo-async" target="_blank" aria-label="Star on GitHub">
             <span class="gh-ico" aria-hidden="true"></span> <span class="gh-text" id="gh-text">Star</span>
@@ -280,6 +280,7 @@
         highlightStyle: 'monokai',
         highlightLines: true
     });
+
     var timer = function() {
       setTimeout(function() {
         request();
@@ -297,8 +298,23 @@
         console.log(star);
       };
       request.send();
-    }
+    };
     timer();
+
+    // 初回のスターボタンセット
+    setStarsButton();
+    slideshow.on('afterShowSlide', setStarsButton);
+
+    /**
+     * setStarsButton
+     */
+    function setStarsButton() {
+        var currentSlideArea = document.querySelector('.remark-visible');
+        if (currentSlideArea) {
+            var currentSlideContainer = currentSlideArea.querySelector('.remark-slide-scaler');
+            currentSlideContainer && currentSlideContainer.appendChild(document.getElementById('stars'));
+        }
+    }
 </script>
 </body>
 </html>
