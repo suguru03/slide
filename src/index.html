@@ -299,11 +299,13 @@
         }
         console.log(star);
         var dom = document.getElementById('gh-count');
-        dom.innerHTML = star;
-        dom.classList.toggle('changed');
-        setTimeout(function() {
+        if (dom.innerHTML != star) {
           dom.classList.toggle('changed');
-        }, 1000)
+          setTimeout(function() {
+            dom.classList.toggle('changed');
+          }, 1000);
+        }
+        dom.innerHTML = star;
       };
       request.send();
     };
