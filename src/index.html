@@ -229,6 +229,7 @@
             margin-top: -4px;
             border-width: 4px 4px 4px 0;
             border-right-color: #fafafa;
+            -webkit-transition: border-right-color 1s;
         }
         .github-btn-large .gh-count:after {
             left: -6px;
@@ -260,6 +261,9 @@
         }
         .gh-count.changed {
           background-color: orange;
+        }
+        .gh-count.changed:before {
+            border-right-color: orange;
         }
 
     </style>
