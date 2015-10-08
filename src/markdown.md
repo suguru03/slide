@@ -36,7 +36,7 @@ class: center, middle
 
 # Neo-Asyncとは
 
-- asyncに互換性があるnodeの非同期ライブラリ
+- Asyncに互換性があるnodeの非同期ライブラリ
 - 弊社では主にゲーム部門で使われている
 - dailyjsにも取り上げられた
   - .fs-s[http://dailyjs.com/2015/02/04/1369-node-roundup/]

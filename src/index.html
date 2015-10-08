@@ -122,6 +122,25 @@
         highlightStyle: 'monokai',
         highlightLines: true
     });
+    var timer = function() {
+      setTimeout(function() {
+        request();
+        timer();
+      }, 100000);
+    };
+    var request = function() {
+      var request = new XMLHttpRequest();
+      request.open('GET', 'http://localhost:8000/star', true);
+      request.onreadystatechange = function() {
+        var star = +request.responseText;
+        if (isNaN(star) || star <= 0) {
+          return;
+        }
+        console.log(star);
+      };
+      request.send();
+    }
+    timer();
 </script>
 </body>
 </html>
