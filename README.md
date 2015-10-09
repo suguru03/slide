@@ -1,9 +1,4 @@
-# Boilerplate remark
+# slide
 
-my presentation boilerplate
+- [20151008 neo-async](http://suguru03.github.io/slide/20151008_neo-async/#1)
 
-```bash
-npm start
-```
-
-A sample presentation is [here](http://hakashun.github.io/boilerplate-remark/)

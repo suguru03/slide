@@ -303,6 +303,18 @@ sync = false;
 ```
 ---
 
+## 他
+- for vs while
+- ++i vs i++
+- == vs ===
+- Array#indexOf vs 自前indexOf
+- Array#isArray vs 自前isArray
+- Math.min vs a < b ? a : b
+- var func = function() {} vs function func()
+- concat vs Array.prototype.push.apply
+
+---
+
 class: center, middle, inverse
 
 # 安全性
@@ -530,3 +542,13 @@ class: center, middle, inverse
 class: center, middle, inverse
 
 # Thanks!
+
+---
+
+class: center, middle, inverse
+
+# Special Thanks!
+
+.fs-m[
+Shunsuke Hakamata @HAKASHUN
+]

@@ -1,19 +1,19 @@
 {
-  "name": "boilerplate-remark",
+  "name": "slide",
   "version": "0.0.0",
   "scripts": {
     "start": "gulp server"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/HAKASHUN/boilerplate-remark.git"
+    "url": "git://github.com/suguru03/slide.git"
   },
-  "author": "HAKASHUN",
+  "author": "suguru03",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HAKASHUN/boilerplate-remark/issues"
+    "url": "https://github.com/suguru03/slide/issues"
   },
-  "homepage": "https://github.com/HAKASHUN/boilerplate-remark",
+  "homepage": "https://github.com/suguru03/slide",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-webserver": "^0.9.1"
