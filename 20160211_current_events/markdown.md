@@ -94,7 +94,7 @@ class: center, middle
 <img src="img/mixi.png" width="100%" />
 ]
 
-- After releasing Monster Strike, the stock became more than four times.
+- After the Monster Strike was released, the stock became more than four times.
 
 ---
 
@@ -104,7 +104,7 @@ class: center, middle
 <img src="img/gungho.png" width="100%" />
 ]
 
-- After releasing Puzzle Dragon, the stock became more than 22 times.
+- After the Puzzle Dragon was released, the stock became more than 22 times.
 
 ---
 
