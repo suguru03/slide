@@ -132,7 +132,7 @@ class: center, middle
 
 ---
 
-# Desscussion
+# Discussion
 
 - What do you think this market?
 - Do you want to invest for stocks of game company?
