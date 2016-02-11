@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile Games</title>
+    <meta charset="utf-8">
+    <meta name="title" content="Neo-Async">
+    <meta name="description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mobile Games">
+    <meta property="og:description" content="">
+
+    <style>
+        body {
+            font-family: 'Noto Sans Japanese', "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+        }
+        h1, h2, h3 {
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 35px !important;
+        }
+        li {
+            font-size: 30px;
+        }
+        a {
+            color: #79B5F2;
+            text-decoration: none;
+        }
+        .col-7 {
+            width: 84%;
+            float: left;
+            margin-right: 2%;
+        }
+        .col-6 {
+            width: 72%;
+            float: left;
+            margin-right: 2%;
+        }
+        .col-5 {
+            width: 60%;
+            float: left;
+            margin-right: 2%;
+        }
+        .col-4 {
+            width: 48%;
+            float: left;
+            margin-right: 2%;
+        }
+        .col-3 {
+            width: 36%;
+            float: left;
+            margin-right: 2%;
+        }
+        .col-2 {
+            width: 24%;
+            float: left;
+            margin-right: 2%;
+        }
+        .col-1 {
+            width: 12%;
+            float: left;
+            margin-right: 2%;
+        }
+        .fs-l {
+            font-size: 55px;
+        }
+        .fs-m {
+            font-size: 40px;
+        }
+        .fs-s {
+            font-size: 20px;
+        }
+        .fw-b {
+            font-weight: bold;
+        }
+        .margin_auto {
+          margin: auto;
+          float: none;
+        }
+
+        .fc-yellow {
+            color: #ffeb3b;
+        }
+
+        .fc-black {
+            color: #000000;
+        }
+
+        .fc-red {
+            color: red;
+        }
+
+        .remark-slide-content {
+            background-color: #203040;
+            background-size: cover !important;
+            background-position: center !important;
+            color: #FEF6EE
+        }
+        .remark-code, .remark-inline-code {
+            font-family: 'Ubuntu Mono';
+        }
+        .remark-code-line {
+            word-wrap: break-word;
+        }
+        .hljs-number {
+            color: #ae81ff;
+        }
+        table {
+            margin: 0 auto;
+        }
+        th {
+            background: white;
+            color: #203040;
+        }
+        th, td {
+            border: 1px solid white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<script src="js/remark.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/webfont/1.6.4/webfontloader.js"></script>
+<script>
+    /**
+     * @description
+     * WebFontローダーを用いて、
+     * サイズの大きい日本語用のフォントを非同期ローディングします
+     */
+
+    WebFont.load({
+        google: {
+            families: ['Ubuntu Mono:400,700,400italic']
+        },
+        custom: {
+            families: ['Noto Sans Japanese:n1,n2,n3,n4,n5,n7,n9'],
+            urls: ['//fonts.googleapis.com/earlyaccess/notosansjapanese.css']
+        }
+    });
+    var slideshow = remark.create({
+        sourceUrl: 'markdown.md',
+        highlightLanguage: 'javascript',
+        highlightStyle: 'monokai',
+        highlightLines: true
+    });
+</script>
+</body>
+</html>
